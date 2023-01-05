@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="index.css">
+  <title>Spiltwise App</title>
+</head>
+<body>
+
+   <header>
+    <nav class="navbar navbar-dark bg-primary">
+      <div class="container-fluid">
+        <a class="navbar-brand" href="/">Spiltwise App</a>
+      </div>
+    </nav>
+  </header>
+    <main class="main-site">
+      <% if(typeof message.response !="undefined" && !message.response[0].success) { %>
+        <div class="alert alert-danger" role="alert">
+          <% if(typeof message.response[0].errorMessage[0].msg !="undefined" ){%>
+            <%= message.response[0].errorMessage[0].msg %>
+            <%}else{%>
+              <%= message.response[0].errorMessage%>
+              <%}%>
+            </div>
+            <% }else if(typeof message.response !="undefined" && message.response[0].success){ %>
+              <div class="alert alert-primary" role="alert">
+                <%= message.response[0].data%>
+              </div>
+              <%}%>
+              <div class="container-xl">
+                <div class="adduser">
+                  <a href="/signin">
+                    signin
+                  </a>
+              </div>
+        <div class="user-frm">
+          <h5 align="center">Login</h5>
+          <h6 class="mb-3" align="center">
+            use the below form to login
+          </h6>
+          <form action="/login" method="POST" id="add_user">
+            <div class="container">
+              <div class="col mb-3">
+                <label for="email">Email</label>
+
+                <input
+                  type="email"
+                  name="email"
+                  value=""
+                  class="form-control"
+                  placeholder="example@gmail.com"
+                  required
+                />
+              </div>
+
+
+              <div class="col mb-3">
+                <label for="password">Password</label>
+
+                <input
+                  type="password"
+                  name="password"
+                  value=""
+                  class="form-control"
+                  placeholder=""
+                  required
+                />
+              </div>
+
+              <div class="d-grid">
+                <button type="submit" class="btn bg-primary text-white">
+                  Login
+                </button>
+              </div>
+            </div>
+          </form>
+        </div>
+    </main>
+  </body>
+</html>

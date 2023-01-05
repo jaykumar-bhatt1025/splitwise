@@ -1,0 +1,39 @@
+<%- include('util/header') %>
+              <% if(typeof message.response !="undefined" && !message.response[0].success) { %>
+    <div class="alert alert-danger" role="alert">
+      <% if(typeof message.response[0].errorMessage[0].msg !="undefined" ){%>
+        <%= message.response[0].errorMessage[0].msg %>
+        <%}else{%>
+          <%= message.response[0].errorMessage%>
+          <%}%>
+        </div>
+        <% }else if(typeof message.response !="undefined" && message.response[0].success){ %>
+          <div class="alert alert-primary" role="alert">
+            <%= message.response[0].data%>
+          </div>
+          <%}%>
+              <main class="main-site">
+                <div class="container-xl">
+                  <form action="/transaction/group" method="post" class="frm">
+                    <h3 align="center">Add Group Expense</h3>
+                    <input type="hidden" name="groupId" value="<%=data.dataValues.id%>">
+                    <div class="col mb-3">
+                      <label>Group Name</label>
+                      <input type="text" class="form-control" value="<%=data.dataValues.groupName%>" disabled/>
+                    </div>
+                    <div class="col mb-3">
+                      <label>Add Amount</label>
+                      <input id="totalAmount" type="number" name="totalAmount" class="form-control" required/>
+                    </div>
+                    <div class="col mb-3">
+                      <label>Description</label>
+                      <input type="text" name="description" class="form-control" required/>
+                    </div>
+                    <div class="d-grid ">
+                      <button type="submit" class="btn bg-primary text-white">Save</button>
+                    </div>
+                  </form>
+                </div>
+              </main>
+            </body>
+          </html>

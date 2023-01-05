@@ -1,0 +1,58 @@
+<%- include('util/header') %>
+  <% if(typeof message.response !="undefined" && !message.response[0].success) { %>
+    <div class="alert alert-danger" role="alert">
+      <% if(typeof message.response[0].errorMessage[0].msg !="undefined" ){%>
+        <%= message.response[0].errorMessage[0].msg %>
+        <%}else{%>
+          <%= message.response[0].errorMessage%>
+          <%}%>
+        </div>
+        <% }else if(typeof message.response !="undefined" && message.response[0].success){ %>
+          <div class="alert alert-primary" role="alert">
+            <%= message.response[0].data%>
+          </div>
+          <%}%>
+  <main class="main-site">
+    <div class="container-xl">
+      <form class="d-flex" action="?searchWord">
+        <input class="form-control me-2" name="searchWord" type="search" placeholder="Search" aria-label="Search">
+        <button class="btn btn-outline-primary" type="submit">Search</button>
+      </form>
+      <form action="" class="frm">
+        <table class="table table-hover">
+          <thead>
+            <tr>
+              <th>User Name</th>
+              
+              <th>description</th>
+              <th>Amount</th>
+              <th>status</th>
+            </tr>
+          </thead>
+          <tbody>
+            <%data.forEach(element=>{ %>
+            <tr>
+                
+              <td><%=element.user.dataValues.name%></td>
+            
+              <td><%=element.dataValues.description%></td>
+              <td><%=Math.round(element.dataValues.friendAmount)%></td>
+              <td><%=element.dataValues.status%></td>
+            </tr>
+            <% }); %>
+          </tbody>
+        </table>
+      </form>
+    </div>
+    <nav class="container-xl" aria-label="Page navigation example">
+      <ul class="pagination">
+        <% if(typeof pages != "undefined" && typeof start != "undefined"){%>
+          <% for(i=start;i<=pages;i++){ %>
+        <li class="page-item"><a class="page-link" <% if(current.page==i){%> pagination__link--active <%}%>" href="/transaction/borrow?page=<%=i%>"><%=i%></a></li>
+        <%}%>
+        <%}%>
+      </ul>
+    </nav>
+  </main>
+</body>
+</html>

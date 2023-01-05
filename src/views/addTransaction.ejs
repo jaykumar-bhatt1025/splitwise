@@ -1,0 +1,70 @@
+<%- include('util/header') %>
+              <% if(typeof message.response !="undefined" && !message.response[0].success) { %>
+    <div class="alert alert-danger" role="alert">
+      <% if(typeof message.response[0].errorMessage[0].msg !="undefined" ){%>
+        <%= message.response[0].errorMessage[0].msg %>
+        <%}else{%>
+          <%= message.response[0].errorMessage%>
+          <%}%>
+        </div>
+        <% }else if(typeof message.response !="undefined" && message.response[0].success){ %>
+          <div class="alert alert-primary" role="alert">
+            <%= message.response[0].data%>
+          </div>
+          <%}%>
+              <main class="main-site">
+                <div class="container-xl">
+                  <form action="/transaction" method="post" class="frm">
+                    <h3 align="center">Add Expense</h3>
+                    <input type="hidden" name="friendId" value="<%=id%>">
+                    <div class="col mb-3">
+                      <label>Add Amount</label>
+                      <input id="totalAmount" type="number" name="totalAmount" class="form-control" required/>
+                    </div>
+                    <div class="col mb-3">
+                      <label>Description</label>
+                      <input type="text" name="description" class="form-control" required/>
+                    </div>
+                    <div class="col mb-3">
+                      <label for="gender">Select Method</label>
+                      <div class="form-check form-check-inline ms-2">
+                          <input class="form-check-input" type="radio" name="SelectMethod" onclick="spiltEqually()"  value="Male">
+                          <label class="form-check-label">Spilt Equally</label>
+                      </div>
+                      <div class="form-check form-check-inline">
+                          <input class="form-check-input" type="radio" name="SelectMethod" onclick="spiltmManually()" value="Female">
+                          <label class="form-check-label">Spilt Manually</label>
+                      </div>
+                    </div>
+                    <div class="col mb-3">
+                     <label>Your Expense</label>
+                     <input name="userAmount" id="YourExpense" type="number" class="form-control" required />
+                    </div>
+                    <div class="col mb-3">
+                      <label>Friend Expense</label>
+                      <input name="friendAmount" id="FriendExpense" type="number" class="form-control" required />
+                    </div>
+                    <div class="d-grid ">
+                      <button type="submit" class="btn bg-primary text-white">Save</button>
+                    </div>
+                  </form>
+                </div>
+              </main>
+              <script>
+                function spiltEqually (){
+                  const totalAmount = document.getElementById('totalAmount').value
+                  const Equally = totalAmount/2;
+                  document.getElementById('YourExpense').value = Equally;
+                  document.getElementById('FriendExpense').value = Equally;
+                  document.getElementById('YourExpense').readOnly = true;
+                  document.getElementById('FriendExpense').readOnly = true;
+                }
+                function spiltmManually() {
+                  document.getElementById('YourExpense').value = 0;
+                  document.getElementById('FriendExpense').value = 0;
+                  document.getElementById('YourExpense').readOnly = false;
+                  document.getElementById('FriendExpense').readOnly = false;
+                }
+              </script>
+            </body>
+          </html>

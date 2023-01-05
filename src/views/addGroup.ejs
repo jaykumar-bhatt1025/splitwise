@@ -1,0 +1,38 @@
+<%- include('util/header') %>
+              <% if(typeof message.response !="undefined" && !message.response[0].success) { %>
+    <div class="alert alert-danger" role="alert">
+      <% if(typeof message.response[0].errorMessage[0].msg !="undefined" ){%>
+        <%= message.response[0].errorMessage[0].msg %>
+        <%}else{%>
+          <%= message.response[0].errorMessage%>
+          <%}%>
+        </div>
+        <% }else if(typeof message.response !="undefined" && message.response[0].success){ %>
+          <div class="alert alert-primary" role="alert">
+            <%= message.response[0].data%>
+          </div>
+          <%}%>
+              <main class="main-site">
+                <div class="container-xl">
+                  <form action="/group" method="post" class="frm">
+                    <h3 align="center">Add Group</h3>
+                    <div class="col mb-3">
+                      <label>Group Name</label>
+                      <input type="text" name="groupName" class="form-control" required/>
+                    </div>
+                    <div class="col mb-3">
+                      <label>Select Friends</label>
+                      <select class="form-select" name="friends" multiple aria-label="multiple select example" multiple>
+                        <% for(let i=0;i<data[0].dataValues.User_Friend.length;i++){%>
+                            <option value='<%=data[0].dataValues.User_Friend[i].dataValues.id%>'><%= data[0].dataValues.User_Friend[i].dataValues.name %></option>
+                            <%}%>
+                    </select>
+                    </div>
+                    <div class="d-grid ">
+                      <button type="submit" class="btn bg-primary text-white">Save</button>
+                    </div>
+                  </form>
+                </div>
+              </main>
+            </body>
+          </html>
